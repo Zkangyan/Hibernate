@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Node" table="t_node">
+		<id name="id" column="nodeId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="nodeName"></property>
+		
+		<!-- 配置 多对一    就像学生表中的配置      column="parentId" 别名  与下面的子节点对应  关联-->
+		<many-to-one name="parentNode" column="parentId" class="com.ky.model.Node" cascade="save-update"></many-to-one>
+		
+		<set name="childNodes"  inverse="true">
+			<key column="parentId"></key>
+			<one-to-many class="com.ky.model.Node"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

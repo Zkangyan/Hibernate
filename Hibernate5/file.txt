@@ -1,0 +1,10 @@
+说明：
+临时状态(transient)：刚用new 语句创建，还没有被持久化，并且不处于Sesssion 的缓存中。处于临时状态
+的Java 对象被称为临时对象。
+持久化状态(persistent)：已经被持久化，并且加入到Session 的缓存中。处于持久化状态的Java 对象被称为
+持久化对象(比如session.save)。
+删除状态(removed)：不再处于Session 的缓存中，并且Session 已经计划将其从数据库中删除。处于删除状
+态的Java 对象被称为删除对象。
+游离状态(detached)：已经被持久化，但不再处于Session 的缓存中。处于游离状态的Java 对象被称为游离对
+象。
+

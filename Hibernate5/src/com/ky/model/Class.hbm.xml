@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Class" table="t_class">
+		<!--表的id   column对应的表名中的字段  -->
+		<id name="id" column="classId">
+			<generator class="native"></generator>
+		</id>
+		<!-- 属性  其他字段     -->
+		<property name="name" column="className"></property>
+		
+		<!--name="students"在class表中的字段 映射其他  到学生表      cascade="save-update" 级联保存 -->
+		<!-- 在学生端进行 inverse="true"  在一对多的  多的一端保持  主外键关联     提高性能-->
+		<!--级联删除   cascade="delete"    -->
+		<set name="students"  cascade="delete" inverse="true">
+			<key column="classId"></key>
+			<one-to-many class="com.ky.model.Student"/>
+		</set>
+		
+	</class>
+
+</hibernate-mapping>
