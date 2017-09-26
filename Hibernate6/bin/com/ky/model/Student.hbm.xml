@@ -15,10 +15,5 @@
 		<!--cascade="save-update"  当没有 session.save(c)  就需要配置  -->
 		<many-to-one name="c" column="classId" class="com.ky.model.Class" cascade="save-update"></many-to-one>
 	</class>
-	
-	
-	
-	
-	
 
 </hibernate-mapping>
