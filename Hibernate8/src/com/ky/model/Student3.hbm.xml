@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.java1234.model">
+
+	<class name="Student3" table="t_student">
+		<id name="id" column="stuId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="stuName"></property>
+		
+		<!-- Bag 无序元素可重复 -->
+		<idbag name="images" table="t_image3">
+			<!--idbag 的 collection-id -->
+				<collection-id type="long" column="imageId">
+					<generator class="increment"></generator>
+				</collection-id>
+			<key column="studentId"></key>
+			<element column="imageName" type="string"></element>
+		</idbag>
+		
+	
+	</class>
+
+</hibernate-mapping>

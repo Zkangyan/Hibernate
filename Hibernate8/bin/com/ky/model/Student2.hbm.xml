@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.java1234.model">
+
+	<class name="Student2" table="t_student">
+		<id name="id" column="stuId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="stuName"></property>
+		
+		<!-- List 有序元素可重复 -->
+		<list name="images" table="t_image2">
+			<key column="studentId"></key>
+			<!-- List集合多了一个 索引 -->
+			<list-index column="imageIndex"></list-index>
+			<element column="imageName" type="string"></element>
+		</list>
+	</class>
+
+</hibernate-mapping>
