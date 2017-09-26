@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Image3" table="t_image3">
+		<id name="id" column="imageId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="imageName" column="imageName"></property>
+		
+		<many-to-one name="student" column="stuId" class="com.ky.model.Student3"></many-to-one>
+		
+		
+		<!-- 两个 image的子类   都对应生成表           每个类对应一个表-->
+		<joined-subclass name="com.ky.model.LifeImage3" table="t_lifeImage3">
+			<key column="lifeImageId"></key>
+		</joined-subclass>
+		
+		<joined-subclass name="com.ky.model.WorkImage3" table="t_workImage3">
+			<key column="workImageId"></key>
+		</joined-subclass>
+	</class>
+
+</hibernate-mapping>

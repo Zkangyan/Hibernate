@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Student2" table="t_student2">
+		<id name="id" column="stuId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="stuName"></property>
+		
+		<!-- 一对多   根类对应一个表 -->
+		<set name="images">
+			<key column="stuId"></key>
+			<one-to-many class="com.ky.model.Image2"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

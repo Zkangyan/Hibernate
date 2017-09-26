@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Student3" table="t_student3">
+		<id name="id" column="stuId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="stuName"></property>
+		
+		<set name="images">
+			<key column="stuId"></key>
+			<one-to-many class="com.ky.model.Image3"/>
+		</set>
+	</class>
+
+</hibernate-mapping>

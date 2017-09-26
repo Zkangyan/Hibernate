@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Image2" table="t_image2">
+		<id name="id" column="imageId">
+			<generator class="native"></generator>
+		</id>
+		
+		<!--新的属性   -->
+		<discriminator column="imageType" type="string"></discriminator>
+		<property name="imageName" column="imageName"></property>
+		
+		<many-to-one name="student" column="stuId" class="com.ky.model.Student2"></many-to-one>
+		
+		<!--用来区分image的子类           根类对应一个表  -->
+		<subclass name="com.ky.model.LifeImage2" discriminator-value="li"></subclass>
+		<subclass name="com.ky.model.WorkImage2" discriminator-value="wi"></subclass>
+	</class>
+
+</hibernate-mapping>
