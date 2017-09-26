@@ -12,7 +12,16 @@ import com.ky.util.HibernateUtil;
 
 public class StudentTest {
 	/**
-	 * 
+	 * Session 常用方法讲解:
+1，save()方法将一个临时对象转变成持久化对象；
+2，load()方法VS get()方法
+都是根据OID 从数据库中加载一个持久化对象。
+区别1：假如数据库中不存在与OID 对应的记录，Load()方法会抛出异常，而get()方法返回null;
+区别2：load 方法默认采用延迟加载策略，get 方法采用立即检索策略；
+2，update()方法将一个游离对象转变为持久化对象；
+3，saveOrUpdate()方法包含了save()和update()方法；
+4，merge()方法，合并对象；
+5，delete()方法，删除对象；
 	 * @param args
 	 */
 	private SessionFactory sessionFactory=HibernateUtil.getSessionFactory();
