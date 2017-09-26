@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="User" table="t_user">
+		<id name="id" column="userId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="userName"></property>
+		<!--  一对一  cascade="all" (这个属性是配置    级联保存更新删除   两边同时一起)-->
+		<one-to-one name="address" class="com.ky.model.Address" cascade="all"></one-to-one>
+	</class>
+
+</hibernate-mapping>

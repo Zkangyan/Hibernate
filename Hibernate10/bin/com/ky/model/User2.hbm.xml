@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="User2" table="t_user2">
+		<id name="id" column="userId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="userName"></property>
+		
+		<!-- 一对一    外键是多对一  2，按照外键映射；    cascade="all" unique="true"(设置唯一  所以就是唯一的外键  也就转化成一对一了)  -->
+		<many-to-one name="address" class="com.ky.model.Address2" column="addressId" cascade="all" unique="true"></many-to-one>
+	</class>
+
+</hibernate-mapping>

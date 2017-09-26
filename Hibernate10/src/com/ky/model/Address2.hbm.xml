@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Address2" table="t_address2">
+		<id name="id" column="addressId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="address" column="address"></property>
+		<property name="zipcode" column="zipcode"></property>
+		
+		<!-- 一对一      2，按照外键映射       property-ref="address" 引用 User 对象中的 address对象-->
+		<one-to-one name="user" class="com.ky.model.User2" property-ref="address"></one-to-one>
+	</class>
+
+</hibernate-mapping>

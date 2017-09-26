@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Address" table="t_address">
+		<id name="id" column="addressId">
+			<generator class="foreign"> <!-- 设置   foreign  属性  不是native -->
+				<param name="property">user</param><!-- 参数为user对象 -->
+			</generator>
+		</id>
+		
+		<property name="address" column="address"></property>
+		<property name="zipcode" column="zipcode"></property>
+		
+		<!-- 一对一        constrained="true" (让他们形成约束  共享主键)-->
+		<one-to-one name="user" class="com.ky.model.User" constrained="true"></one-to-one>
+	</class>
+
+</hibernate-mapping>
