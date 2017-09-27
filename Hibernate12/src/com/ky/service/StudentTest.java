@@ -4,9 +4,13 @@ package com.ky.service;
 import java.util.Iterator;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,24 +20,31 @@ import com.ky.util.HibernateUtil;
 
 
 /**
- * Hibernate 查询方式简介
-	1，导航对象图查询方式(级联查询 学生和班级 通过查学生把班级查出来)；
-2，OID 查询方式(就是根据id查询 session.get(Class.class, Long.valueOf(1)) session.Load())；
-3，本地SQL 查询方式(与本地使用的数据库(oracle mysql)  不能夸数据库)；
-4，HQL 查询方式(都是接口)；
-5，QBC 查询方式；(Query By Criteria)
-本地SQL 查询方式
-	1,就是本地数据库的语句
-HQL 查询方式
-		HQL（Hibernate Query Language）是面向对象的查询语言；是使用最广的一种查询方式；
-1，普通查询；
-2，带条件查询；
-3，使用别名；
-4，对结果排序；
-5，分页查询；
-6，查询单个对象；
-7，链式写法；
-
+ *1、 Hibernate 查询方式简介
+ * 	1，导航对象图查询方式(级联查询 学生和班级 通过查学生把班级查出来)；
+ * 	2，OID 查询方式(就是根据id查询 session.get(Class.class, Long.valueOf(1)) session.Load())；
+ * 	3，本地SQL 查询方式(与本地使用的数据库(oracle mysql)  不能夸数据库)；
+ * 	4，HQL 查询方式(都是接口)；
+ * 	5，QBC 查询方式；(Query By Criteria)
+ *2、本地SQL 查询方式
+ *	 1,就是本地数据库的语句
+ *3、 HQL 查询方式
+ * HQL（Hibernate Query Language）是面向对象的查询语言；是使用最广的一种查询方式；
+ * 	1，普通查询；
+ * 	2，带条件查询；
+ * 	3，使用别名；
+ * 	4，对结果排序；
+ * 	5，分页查询；
+ * 	6，查询单个对象；
+ * 	7，链式写法；
+ *4、 QBC 查询方式
+ * QBC 查询方式(Query By Criteria)是用一套接口来实现的查询方式；
+ * 	1，普通查询；
+ * 	2，带条件查询；
+ *	 3，对结果排序；
+ * 	4，分页查询；
+ * 	5，查询单个对象；
+ * 	6，链式写法；
  * @author Administrator
  *
  */
@@ -54,6 +65,10 @@ public class StudentTest {
 		 session.close(); // 关闭session
 	}
 
+	
+	/**
+	 * 本地SQL 查询方式
+	 */
 	@Test//本地sql查询   必须进过addEntity(Student.class)  不然不能强转成student
 	public void testSQLQuery() {
 		String sql="select * from t_student";
@@ -80,6 +95,12 @@ public class StudentTest {
 			System.out.println(s);
 		}		
 	}
+	
+	/**
+	 *  HQL 查询方式
+	 *  QBC 查询方式(Query By Criteria)是用一套接口来实现的查询方式
+	 * 
+	 */
 	
 	@Test //1，普通查询；  HQL
 	public void testHQLQuery() {
@@ -159,7 +180,7 @@ public class StudentTest {
 	}
 	
 	
-	@Test 
+	@Test  //链式写法；
 	public void testHQLQuery7() {
 		String hql="from Student as s where s.name like :stuName and s.age=:stuAge";
 		Query query=session.createQuery(hql);
@@ -174,4 +195,94 @@ public class StudentTest {
 			System.out.println(s);
 		}		
 	}
+	
+	/**
+	 * QBC 查询方式
+	 * QBC 查询方式(Query By Criteria)是用一套接口来实现的查询方式；
+	 * 1，普通查询；
+	 * 2，带条件查询；
+	 * 3，对结果排序；
+	 * 4，分页查询；
+	 * 5，查询单个对象；
+	 * 6，链式写法；
+	 */
+	
+	@Test  //1，普通查询；
+	public void testQBCQuery1(){
+		Criteria criteria=session.createCriteria(Student.class);
+		List<Student> studentList=criteria.list();
+		Iterator it=studentList.iterator();
+		while(it.hasNext()){
+			Student s=(Student)it.next();
+			System.out.println(s);
+		}	
+	}
+	
+	@Test  //2，带条件查询；
+	public void testQBCQuery2(){
+		Criteria criteria=session.createCriteria(Student.class);
+		Criterion c1=Restrictions.like("name", "张%");
+		Criterion c2=Restrictions.eq("age", 10);
+		criteria.add(c1);
+		criteria.add(c2);
+		List<Student> studentList=criteria.list();
+		Iterator it=studentList.iterator();
+		while(it.hasNext()){
+			Student s=(Student)it.next();
+			System.out.println(s);
+		}	
+	}
+	
+	@Test //3，对结果排序
+	public void testQBCQuery3(){
+		Criteria criteria=session.createCriteria(Student.class);
+		criteria.addOrder(Order.desc("age"));
+		List<Student> studentList=criteria.list();
+		Iterator it=studentList.iterator();
+		while(it.hasNext()){
+			Student s=(Student)it.next();
+			System.out.println(s);
+		}	
+	}
+	
+	@Test //4，分页查询；
+	public void testQBCQuery4(){
+		Criteria criteria=session.createCriteria(Student.class);
+		criteria.setFirstResult(2);
+		criteria.setMaxResults(2);
+		List<Student> studentList=criteria.list();
+		Iterator it=studentList.iterator();
+		while(it.hasNext()){
+			Student s=(Student)it.next();
+			System.out.println(s);
+		}	
+	}
+	
+	@Test //5，查询单个对象
+	public void testQBCQuery5(){
+		Criteria criteria=session.createCriteria(Student.class);
+		criteria.setFirstResult(2);
+		criteria.setMaxResults(1);
+		Student student=(Student)criteria.uniqueResult();
+		System.out.println(student);
+	}
+	
+	
+	@Test //6，链式写法；
+	public void testQBCQuery6(){
+		Criteria criteria=session.createCriteria(Student.class);
+		List<Student> studentList=criteria
+				.setFirstResult(0)
+				.setMaxResults(2)
+				.list();
+		Iterator it=studentList.iterator();
+		while(it.hasNext()){
+			Student s=(Student)it.next();
+			System.out.println(s);
+		}	
+	}
+	
+	
+	
+	
 }
