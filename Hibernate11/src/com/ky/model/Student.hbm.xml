@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Student" table="t_student">
+		<id name="id" column="stuId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="stuName"></property>
+		
+		<!--lazy="no-proxy"  Lazy:proxy(默认) 延迟检索；many-to-one 多对一    有代理类  -->
+		<many-to-one name="c" column="classId" class="com.ky.model.Class" cascade="save-update" lazy="no-proxy"></many-to-one>
+	</class>
+
+</hibernate-mapping>
