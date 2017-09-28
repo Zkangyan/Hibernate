@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ky.model">
+
+	<class name="Class" table="t_class">
+		<id name="id" column="classId">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="name" column="className"></property>
+		
+		<!-- lazy="false"  true  懒加载   Lazy:true (默认) 延迟检索；set 端一对多  -->
+		<!-- Lazy:false 立即检索；set 端一对多 -->
+		<!-- Lazy:extra 增强延迟检索； set 端一对多 -->
+		<!-- batch-size="3"  批量延迟检索   批量立即检索  -->
+		<!--检索策略属性Fetch 1，Fetch:select(默认) 查询方式； -->
+		<!--检索策略属性Fetch 2，Fetch:subselect 子查询方式；sql嵌套 in() -->
+		<!--检索策略属性Fetch 3，Fetch:join 迫切左外连接查询方式； -->
+		<set name="students" cascade="delete" inverse="true" lazy="false" batch-size="3" fetch="join" >
+			<key column="classId"></key>
+			<one-to-many class="com.ky.model.Student"/>
+		</set>
+	</class>
+
+</hibernate-mapping>
